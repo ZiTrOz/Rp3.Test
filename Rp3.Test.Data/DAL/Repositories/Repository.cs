@@ -123,7 +123,7 @@ namespace Rp3.Test.Data.Repositories
         {
             return dbSet.Find(id);
         }
-
+        
         public virtual void Insert(TEntity entity)
         {
             dbSet.Add(entity);

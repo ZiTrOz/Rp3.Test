@@ -24,6 +24,17 @@ namespace Rp3.Test.Mvc.Controllers
             return View(categories);
         }
 
+        public ActionResult Get()
+        {
+            Rp3.Test.Proxies.Proxy proxy = new Proxies.Proxy();
+
+            var categories = proxy.GetCategories();
+
+            var transactionsTypes = proxy.GetTransactionTypes();
+
+            return Json(new { categories, transactionsTypes } , JsonRequestBehavior.AllowGet);
+        }
+
 
 
         public ActionResult Edit(int categoryId)

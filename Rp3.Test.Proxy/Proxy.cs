@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -22,6 +21,19 @@ namespace Rp3.Test.Proxies
         private const string UriGetTransactionType = "api/transactionTypeData/get";
 
         private const string UriGetTransactions = "api/transactionData/get";
+
+        private const string UriGetTransactionById = "api/transactionData/getById?TransactionId={0}";
+        private const string UriUpdateTransaction = "api/transactionData/update";
+        private const string UriInsertTransaction = "api/transactionData/insert";
+        private const string UriGetTransactionByUser = "api/transactionData/GetByUserId?UserId={0}";
+        private const string UriGetBalance = "api/transactionData/GetBalance?UserId={0}";
+
+        private const string UriGetUser = "api/userData/get";
+
+        private const string UriGetUserById = "api/userData/getById?UserId={0}";
+        private const string UriUpdateUser = "api/userData/update";
+        private const string UriInsertUser = "api/userData/insert";
+        private const string UriLoginUser = "api/userData/login";
 
         /// <summary>
         /// Obtiene el Listado de Tipos de Transacción
@@ -80,7 +92,54 @@ namespace Rp3.Test.Proxies
             return HttpGet<List<TransactionView>>(UriGetTransactions);
         }
 
+        public List<TransactionView> GetTransactionsByUser(int userId)
+        {
+            return HttpGet<List<TransactionView>>(UriGetTransactionByUser, userId);
+        }
 
+        public List<Balance> GetBalance(int userId)
+        {
+            return HttpGet<List<Balance>>(UriGetBalance, userId);
+        }
 
+        public Transaction GetTransactionById(int? TransactionId)
+        {
+            return HttpGet<Transaction>(UriGetTransactionById, TransactionId);
+        }
+
+        public bool UpdateTransaction(Rp3.Test.Common.Models.Transaction transaction)
+        {
+            return HttpPostAsJson<bool>(UriUpdateTransaction, transaction);
+        }
+
+        public bool InsertTransaction(Rp3.Test.Common.Models.Transaction transaction)
+        {
+            return HttpPostAsJson<bool>(UriInsertTransaction, transaction);
+        }
+
+        public List<User> GetUsers()
+        {
+            return HttpGet<List<User>>(UriGetUser);
+        }
+
+        public User GetUserById(int? userId)
+        {
+            return HttpGet<User>(UriGetUserById, userId);
+        }
+
+        public bool UpdateUser(Rp3.Test.Common.Models.User user)
+        {
+            return HttpPostAsJson<bool>(UriUpdateUser, user);
+        }
+
+        public bool InsertUser(Rp3.Test.Common.Models.User User)
+        {
+            return HttpPostAsJson<bool>(UriInsertUser, User);
+        }
+
+        public User LoginUser(Rp3.Test.Common.Models.User User)
+        {
+            return HttpPostAsJson<User>(UriLoginUser, User);
+        }
     }
 }
